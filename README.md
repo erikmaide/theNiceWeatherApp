@@ -1,5 +1,3 @@
-
-# The nice weather app
 <img align="left" src="https://github.com/erikmaide/test/blob/master/app1.jpg">
 Weather application made with flutter.
 
