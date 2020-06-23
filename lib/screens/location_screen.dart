@@ -74,3 +74,7 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+//int condition = decodedData['weather'][0]['id'];
+//double temperature = decodedData['main']['temp'];
+//String city = decodedData['name'];
+//print('The key values are: $city, $temperature, $condition');
