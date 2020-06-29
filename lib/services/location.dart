@@ -11,8 +11,6 @@ class Location {
       print(geolocatorPerm);
       Position position = await geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print('This is my location:');
-      print(position);
       latitude = position.latitude;
       longitude = position.longitude;
     } catch (error) {

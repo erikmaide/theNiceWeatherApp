@@ -27,11 +27,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     double latitude = location.latitude;
     double longitude = location.longitude;
     NetworkWeather networkWeather = NetworkWeather(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric');
     var weatherData = await networkWeather.getData();
-    print(weatherData['name']);
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen();
+      return LocationScreen(locationWeather: weatherData);
     }));
   }
 
