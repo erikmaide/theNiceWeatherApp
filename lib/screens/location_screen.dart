@@ -25,20 +25,22 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData) {
-    if (weatherData == null) {
-      temperature = 0;
-      city = '';
-      weatherIcon = 'error';
-      weatherMessage = 'Unable to get weather data';
-      return;
-    } else {
-      double temp = weatherData['main']['temp'];
-      var condition = weatherData['weather'][0]['id'];
-      temperature = temp.toInt();
-      city = weatherData['name'];
-      weatherIcon = weather.getWeatherIcon(condition);
-      weatherMessage = weather.getMessage(temperature);
-    }
+    setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        city = '';
+        weatherIcon = 'error';
+        weatherMessage = 'Unable to get weather data';
+        return;
+      } else {
+        double temp = weatherData['main']['temp'];
+        var condition = weatherData['weather'][0]['id'];
+        temperature = temp.toInt();
+        city = weatherData['name'];
+        weatherIcon = weather.getWeatherIcon(condition);
+        weatherMessage = weather.getMessage(temperature);
+      }
+    });
   }
 
   @override
@@ -74,11 +76,20 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CityScreen();
-                      }));
+                    onPressed: () async {
+                      var typedName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CityScreen();
+                          },
+                        ),
+                      );
+                      if (typedName != null) {
+                        var weatherData =
+                            await weather.getCityWeather(typedName);
+                        updateUI(weatherData);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
